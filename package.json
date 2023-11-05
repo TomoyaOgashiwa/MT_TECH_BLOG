@@ -6,7 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write app/",
+    "prisma-migrate": "env-cmd -f .env.local pnpx prisma migrate dev",
+    "prisma-seed": "pnpx prisma db seed",
+    "prisma-format": "prisma format",
+    "start-local-db": "pnpx supabase start",
+    "stop-local-db": "pnpx supabase stop",
+    "supabase-types": "pnpx supabase gen --workdir types typescript --local --schema public > types/database/SupabaseTypes.ts",
+    "migrate-and-gen": "pnpm run prisma-migrate && pnpm run supabase-types"
   },
   "dependencies": {
     "@prisma/client": "^5.5.2",
@@ -17,15 +25,25 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@typescript-eslint/parser": "^6.9.1",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-tailwindcss": "^3.13.0",
     "postcss": "^8",
+    "prettier": "^3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.6",
     "prisma": "^5.5.2",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma",
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed/index.ts"
   }
 }

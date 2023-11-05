@@ -4,15 +4,16 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
+    "forceConsistentCasingInFileNames": true, // ファイルパスの文字列で大文字小文字を区別する
+    "strict": true, // anyやthisなどの使用で警告が出るようになる
+    "noEmit": true, // trueにするとコンパイル結果を出力しない
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "isolatedModules": true,
+    "isolatedModules": true, // 次を参照：https://qiita.com/ryokkkke/items/390647a7c26933940470#isolatedmodules
     "jsx": "preserve",
-    "incremental": true,
+    "incremental": true, // 次を参照：https://qiita.com/ryokkkke/items/390647a7c26933940470#incremental
     "plugins": [
       {
         "name": "next"

@@ -39,3 +39,6 @@ next-env.d.ts
 
 # mt-tech-blog.code-workspace
 mt-tech-blog.code-workspace
+
+# migration history
+prisma/migrations/
