@@ -14,6 +14,11 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## ER図
+
+<img width="850" alt="スクリーンショット 2023-11-07 22 52 10" src="https://github.com/TomoyaOgashiwa/MT_TECH_BLOG/assets/47682517/263e5725-03d6-40f0-af01-16fbcc4d3eec">
+
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
