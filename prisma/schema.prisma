@@ -10,14 +10,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// 権限定義
 enum Role {
   ADMIN
   USER
 }
 
+// ユーザー情報
 model User {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
-  role  Role   @default(USER)
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(20)
+  email     String   @unique
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  deletedAt DateTime
+  Blog      Blog[]
+  Memo      Memo[]
+}
+
+// ReactやJavascriptなどのタグ一覧(削除しない)
+model Tag {
+  id   String @id @default(uuid())
+  name String @unique @db.VarChar(50)
+  Blog Blog[]
+  Memo Memo[]
+}
+
+// 記事内容DB
+model Blog {
+  id        String   @id @default(uuid())
+  userId    String
+  tagId     String
+  title     String   @db.VarChar(100)
+  contents  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  deletedAt DateTime
+
+  user User @relation(fields: [userId], references: [id])
+  tag  Tag  @relation(fields: [tagId], references: [id])
+}
+
+// 下書き用(削除またはBlogにデータが送信された時点で下書きは物理削除する)
+model Memo {
+  id        String   @id @default(uuid())
+  userId    String
+  tagId     String
+  title     String   @db.VarChar(100)
+  contents  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+  tag  Tag  @relation(fields: [tagId], references: [id])
 }
