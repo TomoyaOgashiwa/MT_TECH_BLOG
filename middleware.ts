@@ -1,0 +1,16 @@
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { NextResponse } from 'next/server'
+
+import type { NextRequest } from 'next/server'
+import { Database } from '@/type/database/SupabaseTypes';
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next()
+  // cookie を使用するように構成された Supabase クライアントを作成する
+  const supabase = createMiddlewareClient<Database>({ req, res });
+
+  // セッションの有効期限が切れている場合は、セッションを更新する - Server Components に必要
+  // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
+  await supabase.auth.getSession();
+  return res
+}
