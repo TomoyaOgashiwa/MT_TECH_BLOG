@@ -46,7 +46,6 @@ export interface Database {
         Row: {
           contents: string
           createdAt: string
-          deletedAt: string
           id: string
           tagId: string
           title: string
@@ -56,7 +55,6 @@ export interface Database {
         Insert: {
           contents: string
           createdAt?: string
-          deletedAt: string
           id: string
           tagId: string
           title: string
@@ -66,7 +64,6 @@ export interface Database {
         Update: {
           contents?: string
           createdAt?: string
-          deletedAt?: string
           id?: string
           tagId?: string
           title?: string
@@ -149,7 +146,6 @@ export interface Database {
       User: {
         Row: {
           createdAt: string
-          deletedAt: string
           email: string
           id: string
           name: string
@@ -158,7 +154,6 @@ export interface Database {
         }
         Insert: {
           createdAt?: string
-          deletedAt: string
           email: string
           id: string
           name: string
@@ -167,7 +162,6 @@ export interface Database {
         }
         Update: {
           createdAt?: string
-          deletedAt?: string
           email?: string
           id?: string
           name?: string
