@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write app/",
+    "format": "prettier --write app/ components/ lib/ actions/",
     "prisma-migrate": "pnpx prisma migrate dev",
     "prisma-seed": "pnpx prisma db seed",
     "prisma-format": "prisma format",
