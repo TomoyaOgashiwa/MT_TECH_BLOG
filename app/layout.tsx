@@ -5,6 +5,8 @@ import "./globals.css";
 
 import { cn } from "@/lib/utils";
 
+import { Toaster } from "@/components/ui/toaster";
+
 const fontSans = FontSans({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
@@ -15,7 +17,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja">
-      <body className={cn("bg-background min-h-screen font-sans antialiased", fontSans.variable)}>{children}</body>
+      <body className={cn("bg-background min-h-screen font-sans antialiased", fontSans.variable)}>
+        {children}
+        <Toaster />
+      </body>
     </html>
   );
 }
