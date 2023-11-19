@@ -11,7 +11,46 @@ const main = async () => {
     }
   })
 
-  await prisma.$transaction([dummyUser]);
+  const dummyTag = prisma.tag.createMany({
+    data:[
+      // Language
+      {name: 'Javascript'},
+      {name: 'Java'},
+      {name: 'Typescript'},
+      {name: 'Go'},
+      {name: 'Node'},
+      {name: 'PHP'},
+      {name: 'HTML'},
+      {name: 'CSS'},
+      {name: 'Python'},
+      {name: 'Rust'},
+      // Framework
+      {name: 'React'},
+      {name: 'Vue'},
+      {name: 'Angular'},
+      {name: 'Next'},
+      {name: 'Remix'},
+      {name: 'Spring'},
+      {name: 'Laravel'},
+      // Infrastructure
+      {name: 'AWS'},
+      {name: 'GCP'},
+      {name: 'Azure'},
+      // ORM
+      {name: 'Prisma'},
+      {name: 'Drizzle'},
+      // DB
+      {name: 'Mysql'},
+      {name: 'Postgresql'},
+      {name: 'NoSQL'},
+      // Baas
+      {name: 'Planet Scale'},
+      {name: 'Supabase'},
+      {name: 'Firebase'},
+    ]
+  })
+
+  await prisma.$transaction([dummyUser, dummyTag]);
 };
 
 main()

@@ -13,7 +13,7 @@
     "prisma-format": "prisma format",
     "start-local-db": "pnpx supabase start",
     "stop-local-db": "pnpx supabase stop",
-    "supabase-types": "npx supabase gen types typescript --local --schema public > type/database/SupabaseTypes.ts",
+    "supabase-types": "pnpx supabase gen types typescript --local --schema public > type/database/SupabaseTypes.ts",
     "migrate-and-gen": "pnpm run prisma-migrate && pnpm run supabase-types"
   },
   "dependencies": {
@@ -57,6 +57,7 @@
     "prisma": "^5.5.2",
     "supabase": ">=1.8.1",
     "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5"
   },
   "prisma": {
