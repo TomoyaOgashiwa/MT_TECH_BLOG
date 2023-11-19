@@ -38,7 +38,7 @@ const LoginForm = () => {
         variant: "destructive",
       });
     }
-
+    router.refresh();
     router.push("/");
   };
   return (
