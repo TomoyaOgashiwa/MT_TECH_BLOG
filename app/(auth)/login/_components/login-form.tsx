@@ -9,7 +9,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { loginFormSchema, LoginFormValues } from "@/app/(auth)/login/_schema/schema";
@@ -53,7 +53,6 @@ const LoginForm = () => {
               <FormControl>
                 <Input placeholder="EMAIL" {...field} />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -67,7 +66,6 @@ const LoginForm = () => {
               <FormControl>
                 <Input type="password" placeholder="PASSWORD" {...field} />
               </FormControl>
-              <FormDescription>This is your public display name.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
