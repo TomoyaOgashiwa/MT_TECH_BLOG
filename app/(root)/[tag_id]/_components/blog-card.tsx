@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { getLikeCount } from "@/actions/like/getLike";
+import { getLikeCount } from "@/actions/like/get-like";
 import type { Blog, User } from "@prisma/client";
 import { Star } from "lucide-react";
 
