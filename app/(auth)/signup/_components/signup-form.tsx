@@ -1,7 +1,10 @@
+"use client";
+
 import React, { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { createUser } from "@/actions/auth/create-user";
+import { createUser, updateUserName } from "@/actions/auth/create-user";
 import { supabaseClient } from "@/lib/supabase/supabase-client";
 import { generalAuthFormSchema, GeneralAuthFormValues } from "@/type/schema/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -35,7 +39,7 @@ const SignupForm = () => {
     mode: "onChange",
   });
 
-  const { register, setValue, handleSubmit } = useForm<RegisterUserFormValues>({
+  const updateNameForm = useForm<RegisterUserFormValues>({
     resolver: zodResolver(registerUserFormSchema),
     defaultValues: {
       id: "",
@@ -47,8 +51,6 @@ const SignupForm = () => {
 
   const onSingupFormSubmit = async (values: GeneralAuthFormValues) => {
     const { data, error } = await supabaseClient.auth.signUp(values);
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     if (error) {
       toast({
         title: "新規登録に失敗しました",
@@ -56,18 +58,23 @@ const SignupForm = () => {
         variant: "destructive",
       });
     } else if (data) {
-      setValue("id", data.user?.id || "");
-      setValue("email", data.user?.email || "");
+      const id = data.user?.id || "";
+      const email = data.user?.email || "";
+      await createUser({ id, email });
+      updateNameForm.setValue("id", id);
+      updateNameForm.setValue("email", email);
+      setOpen(true);
     }
   };
 
   const onRegisterUserFormSubmit = async (values: RegisterUserFormValues) => {
-    const { isSuccess, message } = await createUser(values);
+    const { isSuccess, message } = await updateUserName(values);
     toast({
       title: message,
-      variant: isSuccess ? "destructive" : "default",
-      duration: 2000,
+      variant: isSuccess ? "default" : "destructive",
+      duration: 3000,
     });
+    setOpen(false);
 
     if (isSuccess) {
       router.refresh();
@@ -77,22 +84,39 @@ const SignupForm = () => {
   return (
     <>
       <GeneralAuthForm form={signupForm} onSubmit={onSingupFormSubmit} />
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogHeader>
-          <DialogTitle>ユーザー名登録</DialogTitle>
-          <DialogDescription>
-            新規登録が完了しました。
-            <br />
-            続けてユーザー名の登録を行ってください。
-          </DialogDescription>
-        </DialogHeader>
-        <DialogContent className="flex">
-          <Input {...register("name")} placeholder="Username" />
-          <Button onClick={() => handleSubmit(onRegisterUserFormSubmit)}>登録</Button>
+      <Dialog open={open} modal>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>ユーザー名登録</DialogTitle>
+            <DialogDescription>
+              新規登録が完了しました。
+              <br />
+              続けてユーザー名の登録を行ってください。
+            </DialogDescription>
+          </DialogHeader>
+          <Form {...updateNameForm}>
+            <form className="grid grid-cols-4 gap-3" onSubmit={updateNameForm.handleSubmit(onRegisterUserFormSubmit)}>
+              <FormField
+                control={updateNameForm.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem className="col-span-3">
+                    <FormControl>
+                      <Input placeholder="USERNAME" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit">登録</Button>
+            </form>
+          </Form>
+          <DialogFooter className="flex">
+            <Button onClick={() => setOpen(false)}>
+              <Link href={"/"}>登録せず記事一覧へ</Link>
+            </Button>
+          </DialogFooter>
         </DialogContent>
-        <DialogFooter className="flex">
-          <Button>登録せず記事一覧へ</Button>
-        </DialogFooter>
       </Dialog>
     </>
   );
