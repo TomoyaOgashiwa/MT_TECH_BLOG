@@ -40,7 +40,7 @@ export default async function NavMenu() {
                 <Link href={"/login"}>ログイン</Link>
               </Button>
               <Button>
-                <Link href={"/"}>新規作成</Link>
+                <Link href={"/signup"}>新規作成</Link>
               </Button>
             </>
           )}

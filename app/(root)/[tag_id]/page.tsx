@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getBlogList } from "@/actions/blog/getBlogList";
+import { getBlogList } from "@/actions/blog/get-blog-list";
 
 import BlogCard from "@/app/(root)/[tag_id]/_components/blog-card";
 
